@@ -43,10 +43,6 @@ class Car {
      * @ORM\Column(type="float")
      */
     protected $pricePerMonth;
-    /**
-     * @ORM\Column(type="string")
-     */
-    protected $paymentModality;
 
     public function getCarId(){
         return $this->carId;
@@ -98,13 +94,5 @@ class Car {
 
     public function setPricePerMonth($pricePerMonth){
         $this->pricePerMonth = $pricePerMonth;
-    }
-
-    public function getPaymentModality(){
-        return $this->paymentModality;
-    }
-
-    public function setPaymentModality($paymentModality){
-        $this->paymentModality = $paymentModality;
     }
 }
