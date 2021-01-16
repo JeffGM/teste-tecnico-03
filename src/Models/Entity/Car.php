@@ -32,7 +32,7 @@ class Car {
      */
     protected $year;
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", unique=true)
      */
     protected $licensePlate;
 
