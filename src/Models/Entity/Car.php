@@ -35,6 +35,18 @@ class Car {
      * @ORM\Column(type="string", unique=true)
      */
     protected $licensePlate;
+    /**
+     * @ORM\Column(type="float")
+     */
+    protected $pricePerDay;
+    /**
+     * @ORM\Column(type="float")
+     */
+    protected $pricePerMonth;
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $paymentModality;
 
     public function getCarId(){
         return $this->carId;
@@ -70,5 +82,29 @@ class Car {
 
     public function setLicensePlate($licensePlate){
         $this->licensePlate = $licensePlate;
+    }
+
+    public function getPricePerDay(){
+        return $this->pricePerDay;
+    }
+
+    public function setPricePerDay($pricePerDay){
+        $this->pricePerDay = $pricePerDay;
+    }
+
+    public function getPricePerMonth(){
+        return $this->pricePerMonth;
+    }
+
+    public function setPricePerMonth($pricePerMonth){
+        $this->pricePerMonth = $pricePerMonth;
+    }
+
+    public function getPaymentModality(){
+        return $this->paymentModality;
+    }
+
+    public function setPaymentModality($paymentModality){
+        $this->paymentModality = $paymentModality;
     }
 }
