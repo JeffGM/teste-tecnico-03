@@ -12,9 +12,15 @@ return [
 
             'cache_dir' => APP_ROOT . '/var/doctrine',
 
-            'metadata_dirs' => [],
+            'metadata_dirs' => [APP_ROOT . '/src/Models/Entity'],
 
-            'connection' => []
+            'connection' => [
+                'dbname' => 'testing',
+                'user' => 'root',
+                'password' => 'admin',
+                'host' => 'localhost:3306',
+                'driver' => 'pdo_mysql',
+            ]
         ]
     ]
 ];
