@@ -3,6 +3,7 @@
 
 namespace Models\Entity;
 use Doctrine\ORM\Mapping as ORM;
+use Models\Traits\DataChangeLogTrait;
 
 /**
  * @ORM\Entity
@@ -10,6 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\HasLifecycleCallbacks
  */
 class Car {
+    use DataChangeLogTrait;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
