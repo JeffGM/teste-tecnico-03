@@ -3,7 +3,7 @@
 
 namespace Models\Entity;
 
-
+use Doctrine\ORM\Mapping as ORM;
 use Models\Traits\DataChangeLogTrait;
 
 /**
@@ -31,6 +31,11 @@ class Client {
      * @ORM\Column(type="date")
      */
     protected $birthDate;
+    /**
+     * @ORM\OneToOne(targetEntity="Models\Entity\Address")
+     * @ORM\JoinColumn(name="addressId", referencedColumnName="addressId")
+     */
+    protected $address;
 
     public function getCpf(){
         return $this->cpf;
