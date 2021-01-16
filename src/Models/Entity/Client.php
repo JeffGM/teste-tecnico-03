@@ -6,6 +6,11 @@ namespace Models\Entity;
 
 use Models\Traits\DataChangeLogTrait;
 
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="client")
+ * @ORM\HasLifecycleCallbacks
+ */
 class Client {
     use DataChangeLogTrait;
 
