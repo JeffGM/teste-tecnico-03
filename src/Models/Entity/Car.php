@@ -43,6 +43,10 @@ class Car {
      * @ORM\Column(type="float")
      */
     protected $pricePerMonth;
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $isAvaliable;
 
     public function getCarId(){
         return $this->carId;
@@ -94,5 +98,13 @@ class Car {
 
     public function setPricePerMonth($pricePerMonth){
         $this->pricePerMonth = $pricePerMonth;
+    }
+
+    public function getIsAvaliable(){
+        return $this->pricePerMonth;
+    }
+
+    public function setIsAvaliable($isAvaliable){
+        $this->isAvaliable = $isAvaliable;
     }
 }
