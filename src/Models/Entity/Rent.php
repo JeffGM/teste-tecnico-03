@@ -40,7 +40,7 @@ class Rent {
      */
     protected $returnedTheCarAt;
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string")
      */
     protected $paymentModality;
 

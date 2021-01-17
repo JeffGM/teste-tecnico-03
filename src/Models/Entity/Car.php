@@ -50,12 +50,17 @@ class Car {
     /**
      * @ORM\Column(type="boolean")
      */
-    protected $isAvaliable;
+    protected $isAvailable;
+    /**
+     * @ORM\OneToMany(targetEntity="Models\Entity\Rent", mappedBy="car")
+     * @ORM\JoinColumn(name="rentId", referencedColumnName="rentId")
+     */
+    protected $lastRent;
 
     public function __construct($data) {
         $this->setCarName($data["carName"]);
         $this->setColor($data["color"]);
-        $this->setIsAvaliable(true);
+        $this->setIsAvailable(true);
         $this->setLicensePlate($data["licensePlate"]);
         $this->setModel($data["carModel"]);
         $this->setYear($data["year"]);
@@ -123,11 +128,19 @@ class Car {
         $this->pricePerMonth = $pricePerMonth;
     }
 
-    public function getIsAvaliable(){
-        return $this->isAvaliable;
+    public function getIsAvailable(){
+        return $this->isAvailable;
     }
 
-    public function setIsAvaliable($isAvaliable){
-        $this->isAvaliable = $isAvaliable;
+    public function setIsAvailable($isAvailable){
+        $this->isAvailable = $isAvailable;
+    }
+
+    public function getLasRent(){
+        return $this->lastRent;
+    }
+
+    public function setLastRent($lastRent){
+        $this->lastRent = $lastRent;
     }
 }
