@@ -32,8 +32,11 @@ class Client {
      */
     protected $email;
 
-    public function __construct($data) {
-        $this->setCpf($data["cpf"]);
+    public function __construct($cpf) {
+        $this->setCpf($cpf);
+    }
+
+    public function setFieldsFromData($data) {
         $this->setFullName($data["fullName"]);
         $this->setEmail($data["email"]);
         $this->setPhone($data["phone"]);
@@ -64,7 +67,7 @@ class Client {
     }
 
     public function setEmail($email){
-        return $this->email;
+        $this->email = $email;
     }
 
     public function getEmail(){
