@@ -22,6 +22,10 @@ class Car {
     /**
      * @ORM\Column(type="string")
      */
+    protected $carName;
+    /**
+     * @ORM\Column(type="string")
+     */
     protected $model;
     /**
      * @ORM\Column(type="string")
@@ -50,6 +54,14 @@ class Car {
 
     public function getCarId(){
         return $this->carId;
+    }
+
+    public function getCarName(){
+        return $this->carName;
+    }
+
+    public function setCarName($carName){
+        $this->carName = $carName;
     }
 
     public function getModel(){
