@@ -73,7 +73,6 @@ vendor/bin/doctrine orm:schema-tool:create
 -> Exemplo de response (201):
 ```  
 {
-  "carId": 1,
   "carName": "Honda Civic",
   "carModel": "Sedan",
   "color": "Sedan",
@@ -87,16 +86,15 @@ vendor/bin/doctrine orm:schema-tool:create
 }
 ```
 ### Retornar carro (GET)
--> Rota: /car/{carId} \
+-> Rota: /car/{licensePlate} \
 -> Exemplo de request:
 ```  
-/car/1
+/car/AXY034
 ```
 
 -> Exemplo de response (200):
 ```  
 {
-  "carId": 1,
   "carName": "Honda Civic",
   "carModel": "Sedan",
   "color": "Sedan",
@@ -104,9 +102,9 @@ vendor/bin/doctrine orm:schema-tool:create
   "licensePlate": "AXY034",
   "pricePerDay": 40.99,
   "pricePerMonth": 679.97,
-  "isAvailable": true,
-  "updatedAt": "2021-01-17 22:22:31",
-  "createdAt": "2021-01-17 22:22:31"
+  "isAvailable": false,
+  "updatedAt": "2021-01-17 22:58:21",
+  "createdAt": "2021-01-17 22:42:03"
 }
 ```
 ### Editar carro (PATCH)
@@ -114,25 +112,25 @@ vendor/bin/doctrine orm:schema-tool:create
 -> Exemplo de request:
 ```  
 {
-	"carId": 2,
-	"carName":"Civic"
+	"licensePlate": "AXY034",
+	"carName":"Golf",
+	"newLicensePlate": "ASD1234"
 }
 ```
 
 -> Exemplo de response (200):
 ```  
 {
-  "carId": 1,
-  "carName": "Civic",
+  "carName": "ASD1234",
   "carModel": "Sedan",
   "color": "Sedan",
   "year": 2009,
   "licensePlate": "AXY034",
   "pricePerDay": 40.99,
   "pricePerMonth": 679.97,
-  "isAvailable": true,
-  "updatedAt": "2021-01-17 22:24:23",
-  "createdAt": "2021-01-17 22:22:31"
+  "isAvailable": false,
+  "updatedAt": "2021-01-17 23:04:10",
+  "createdAt": "2021-01-17 22:42:03"
 }
 ```
 ### Remover Carro (DELETE)
@@ -140,7 +138,7 @@ vendor/bin/doctrine orm:schema-tool:create
 -> Exemplo de request:
 ```  
 {
-	"carId": 6
+	"licensePlate": "XAS2034"
 }
 ```
 
@@ -155,7 +153,7 @@ Sem corpo de resposta
 -> Exemplo de request:
 ```  
 {
-	"carId":1,
+	"licensePlate": "AXY034",
 	"client": {
 		"fullName": "Jefferson Lopes",
 		"email": "jeovaneml@live.com",
@@ -205,7 +203,7 @@ Sem corpo de resposta
 -> Exemplo de request:
 ```  
 {
-	"carId":1
+	"licensePlate": "XAS2034"
 }
 ```
 -> Exemplo de response (200):
