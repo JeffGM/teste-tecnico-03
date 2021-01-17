@@ -22,20 +22,15 @@ class Client {
     /**
      * @ORM\Column(type="string")
      */
-    protected $firstName;
+    protected $fullName;
     /**
      * @ORM\Column(type="string")
      */
-    protected $lastName;
+    protected $phone;
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="string")
      */
-    protected $birthDate;
-    /**
-     * @ORM\OneToOne(targetEntity="Models\Entity\Address")
-     * @ORM\JoinColumn(name="addressId", referencedColumnName="addressId")
-     */
-    protected $address;
+    protected $email;
 
     public function getCpf(){
         return $this->cpf;
@@ -45,27 +40,28 @@ class Client {
         $this->cpf = $cpf;
     }
 
-    public function getFirstName(){
-        return $this->firstName;
+    public function getFullName(){
+        return $this->fullName;
     }
 
-    public function setFirstName($firstName){
-        $this->firstName = $firstName;
+    public function setFullName($fullName){
+        $this->fullName = $fullName;
     }
 
-    public function getLastName(){
-        return $this->lastName;
+    public function getPhone(){
+        return $this->phone;
     }
 
-    public function setLastName($lastName){
-        $this->lastName = $lastName;
+    public function setPhone($phone){
+        $this->phone = $phone;
     }
 
-    public function getBirthDate(){
-        return $this->birthDate;
+    public function setEmail(){
+        return $this->email;
     }
 
-    public function setBirthDate($birthDate){
-        $this->birthDate = $birthDate;
+    public function getEmail($email){
+        $this->email = $email;
     }
+
 }
