@@ -20,18 +20,15 @@ use Models\Formatters\CarFormatter;
 class CarController implements ControllerDeleteInterface, ControllerPatchInterface, ControllerGetInterface, ControllerPostInterface {
     protected $em;
 
-    public function __construct(EntityManager $em)
-    {
+    public function __construct(EntityManager $em){
         $this->em = $em;
     }
 
-    public function delete($request, $response, array $args)
-    {
+    public function delete($request, $response, array $args){
         // TODO: Implement delete() method.
     }
 
-    public function get($request, $response, array $args)
-    {
+    public function get($request, $response, array $args){
         $carId = $args["id"];
 
         try {
@@ -49,13 +46,11 @@ class CarController implements ControllerDeleteInterface, ControllerPatchInterfa
         return $response->withStatus(RESPONSE_STATUS_SUCCESS);
     }
 
-    public function patch($request, $response, array $args)
-    {
+    public function patch($request, $response, array $args){
         // TODO: Implement patch() method.
     }
 
-    public function post($request, $response, array $args)
-    {
+    public function post($request, $response, array $args){
         $data = $request->getParsedBody();
 
         try {
@@ -64,6 +59,8 @@ class CarController implements ControllerDeleteInterface, ControllerPatchInterfa
 
             $this->em->persist($car);
             $this->em->flush();
+
+            $response->getBody()->write(CarFormatter::getAsJSON($car));
         } catch (\InvalidArgumentException $e) {
             $response->getBody()->write($e->getMessage());
             return $response->withStatus(RESPONSE_STATUS_UNPROCESSABLE_ENTITY);
