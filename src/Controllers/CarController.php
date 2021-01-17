@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Exception;
+use Exceptions\ResourceNotFoundException;
 use Interfaces\ControllerDeleteInterface;
 use Interfaces\ControllerGetInterface;
 use Interfaces\ControllerPatchInterface;
@@ -30,7 +31,20 @@ class CarController implements ControllerDeleteInterface, ControllerPatchInterfa
 
     public function get($request, $response, array $args)
     {
-        // TODO: Implement get() method.
+        $carId = $args["id"];
+
+        try {
+            $car = $this->em->getRepository('Models/Entity/Car')->find($carId);
+
+            if($car == null)
+                throw new ResourceNotFoundException("Car not found!");
+
+        } catch(ResourceNotFoundException $e) {
+            $response->getBody()->write($e->getMessage());
+            return $response->withStatus(RESPONSE_STATUS_NOT_FOUND);
+        }
+
+        return $response->withStatus(RESPONSE_STATUS_SUCCESS);
     }
 
     public function patch($request, $response, array $args)
