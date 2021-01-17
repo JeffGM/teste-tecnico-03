@@ -22,12 +22,12 @@ class Rent {
      */
     protected $rentId;
     /**
-     * @ORM\OneToOne(targetEntity="Models\Entity\Client")
+     * @ORM\ManyToOne(targetEntity="Models\Entity\Client")
      * @ORM\JoinColumn(name="cpf", referencedColumnName="cpf")
      */
     protected $client;
     /**
-     * @ORM\OneToOne(targetEntity="Models\Entity\Car")
+     * @ORM\ManyToOne(targetEntity="Models\Entity\Car")
      * @ORM\JoinColumn(name="carId", referencedColumnName="carId")
      */
     protected $car;

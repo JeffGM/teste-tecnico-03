@@ -35,11 +35,16 @@ class RentController implements ControllerPostInterface {
             if($car == null)
                 throw new ResourceNotFoundException("Car not found!");
 
-            $client = new Client($data["client"]);
+            $client = $this->em->getRepository('\Models\Entity\Client')->find($data["client"]["cpf"]);
 
-            $rent = new Rent($data, $car, $client);
+            if($client == null)
+                $client = new Client($data["client"]["cpf"]);
 
-            $this->em->merge($client);
+            $client->setFieldsFromData($data["client"]);
+
+            $rent = new Rent($data, $client, $car);
+
+            $this->em->persist($client);
             $this->em->persist($rent);
             $this->em->flush();
 
