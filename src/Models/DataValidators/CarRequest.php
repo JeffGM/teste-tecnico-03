@@ -8,10 +8,10 @@ class CarRequest extends RequestValidator {
         'carName' => 'string',
         'carModel' => 'string',
         'color' => 'string',
-        'year' => 'string',
+        'year' => 'integer',
         'licensePlate' => 'string',
         'pricePerDay' => 'float',
         'pricePerMonth' => 'float',
-        'isAvaliable' => 'bool'
+        'isAvailable' => 'bool'
     ];
-    }
+}

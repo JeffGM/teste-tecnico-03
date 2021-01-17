@@ -52,6 +52,17 @@ class Car {
      */
     protected $isAvaliable;
 
+    public function __construct($data) {
+        $this->setCarName($data["carName"]);
+        $this->setColor($data["color"]);
+        $this->setIsAvaliable(true);
+        $this->setLicensePlate($data["licensePlate"]);
+        $this->setModel($data["carModel"]);
+        $this->setYear($data["year"]);
+        $this->setPricePerDay($data["pricePerDay"]);
+        $this->setPricePerMonth($data["pricePerMonth"]);
+    }
+
     public function getCarId(){
         return $this->carId;
     }
