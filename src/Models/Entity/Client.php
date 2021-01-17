@@ -16,7 +16,7 @@ class Client {
 
     /**
      * @ORM\Id
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string")
      */
     protected $cpf;
     /**
