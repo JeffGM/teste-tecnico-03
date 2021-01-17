@@ -25,11 +25,27 @@ class CarController implements ControllerDeleteInterface, ControllerPatchInterfa
     }
 
     public function delete($request, $response, array $args){
-        // TODO: Implement delete() method.
+        $data = $request->getParsedBody();
+
+        try {
+            $car =  $this->em->getRepository('\Models\Entity\Car')->find($data["carId"]);
+
+            if($car == null)
+                throw new ResourceNotFoundException("Car not found!");
+
+            $this->em->remove($car);
+            $this->em->flush();
+        } catch(ResourceNotFoundException $e) {
+            $response->getBody()->write($e->getMessage());
+            return $response->withStatus(RESPONSE_STATUS_NOT_FOUND);
+        } catch (Exception $e) {
+            return $response->withStatus(RESPONSE_STATUS_INTERNAL_SERVER_ERROR);
+        }
+        return $response->withStatus(RESPONSE_STATUS_SUCCESS);
     }
 
     public function get($request, $response, array $args){
-        $carId = $args["id"];
+        $carId = $args["carId"];
 
         try {
             $car = $this->em->getRepository('\Models\Entity\Car')->find($carId);
