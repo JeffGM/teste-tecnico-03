@@ -124,7 +124,7 @@ class Car {
     }
 
     public function getIsAvaliable(){
-        return $this->pricePerMonth;
+        return $this->isAvaliable;
     }
 
     public function setIsAvaliable($isAvaliable){

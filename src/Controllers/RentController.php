@@ -35,6 +35,9 @@ class RentController implements ControllerPostInterface {
             if($car == null)
                 throw new ResourceNotFoundException("Car not found!");
 
+            if(!$car->getIsAvaliable())
+                throw new \InvalidArgumentException("The car is already rented!");
+
             $client = $this->em->getRepository('\Models\Entity\Client')->find($data["client"]["cpf"]);
 
             if($client == null)
@@ -42,8 +45,11 @@ class RentController implements ControllerPostInterface {
 
             $client->setFieldsFromData($data["client"]);
 
+            $car->setIsAvaliable(false);
+
             $rent = new Rent($data, $client, $car);
 
+            $this->em->persist($car);
             $this->em->persist($client);
             $this->em->persist($rent);
             $this->em->flush();

@@ -48,7 +48,7 @@ class Rent {
         $this->setCar($car);
         $this->setClient($client);
         $this->setPaymentModality($data["paymentModality"]);
-        $this->setRentedTheCarAt(new DateTime($data["rentedTheCarAt"]));
+        $this->setRentedTheCarAt(DateTime::createFromFormat('d/m/Y H:i:s',$data["rentedTheCarAt"]));
     }
 
     public function getRentId(){
@@ -72,7 +72,7 @@ class Rent {
     }
 
     public function getRentedTheCarAt(){
-        return $this->rentedTheCarAt;
+        return $this->rentedTheCarAt->format('Y-m-d H:i:s');
     }
 
     public function setRentedTheCarAt($rentedTheCarAt){
@@ -80,7 +80,10 @@ class Rent {
     }
 
     public function getReturnedTheCarAt(){
-        return $this->returnedTheCarAt;
+        if($this->returnedTheCarAt != null)
+            return $this->returnedTheCarAt->format('Y-m-d H:i:s');
+        else
+            return $this->returnedTheCarAt;
     }
 
     public function setReturnedTheCarAt($returnedTheCarAt){
