@@ -131,7 +131,7 @@ class CarController implements ControllerDeleteInterface, ControllerPatchInterfa
             return $response->withStatus(RESPONSE_STATUS_UNPROCESSABLE_ENTITY);
         } catch (ConstraintViolationException $e) {
             $response->getBody()->write("The license plate is already registered for another car!");
-            return $response->withStatus(RESPONSE_STATUS_INTERNAL_SERVER_ERROR);
+            return $response->withStatus(RESPONSE_STATUS_UNPROCESSABLE_ENTITY);
         } catch (Exception $e) {
             return $response->withStatus(RESPONSE_STATUS_INTERNAL_SERVER_ERROR);
         }
