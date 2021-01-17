@@ -3,6 +3,7 @@
 
 namespace Models\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Models\Traits\DataChangeLogTrait;
 
@@ -35,13 +36,20 @@ class Rent {
      */
     protected $rentedTheCarAt;
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     protected $returnedTheCarAt;
     /**
      * @ORM\Column(type="integer")
      */
     protected $paymentModality;
+
+    public function __construct($data, $client, $car) {
+        $this->setCar($car);
+        $this->setClient($client);
+        $this->setPaymentModality($data["paymentModality"]);
+        $this->setRentedTheCarAt(new DateTime($data["rentedTheCarAt"]));
+    }
 
     public function getRentId(){
         return $this->rentId;
