@@ -13,3 +13,5 @@ $app->delete('/car', CarController::class . ':delete');
 $app->get('/car/{carId}', CarController::class . ':get');
 
 $app->post('/rent', RentController::class . ':post');
+$app->post('/return-car', RentController::class . ':returnCar');
+

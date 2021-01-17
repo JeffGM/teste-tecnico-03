@@ -4,6 +4,7 @@
 namespace Controllers;
 
 
+use DateTime;
 use Doctrine\DBAL\Exception\ConstraintViolationException;
 use Doctrine\ORM\EntityManager;
 use Exception;
@@ -35,7 +36,7 @@ class RentController implements ControllerPostInterface {
             if($car == null)
                 throw new ResourceNotFoundException("Car not found!");
 
-            if(!$car->getIsAvaliable())
+            if(!$car->getIsAvailable())
                 throw new \InvalidArgumentException("The car is already rented!");
 
             $client = $this->em->getRepository('\Models\Entity\Client')->find($data["client"]["cpf"]);
@@ -45,7 +46,7 @@ class RentController implements ControllerPostInterface {
 
             $client->setFieldsFromData($data["client"]);
 
-            $car->setIsAvaliable(false);
+            $car->setIsAvailable(false);
 
             $rent = new Rent($data, $client, $car);
 
@@ -62,14 +63,50 @@ class RentController implements ControllerPostInterface {
             $response->getBody()->write($e->getMessage());
             return $response->withStatus(RESPONSE_STATUS_NOT_FOUND);
         } catch (Exception $e) {
+            $response->getBody()->write($e->getMessage());
+
             return $response->withStatus(RESPONSE_STATUS_INTERNAL_SERVER_ERROR);
         }
 
         return $response->withStatus(RESPONSE_STATUS_CREATED);
     }
 
-    public function returnCar($request, $response, array $args)
-    {
-        // TODO: Implement returnCar() method.
+    public function returnCar($request, $response, array $args){
+        $data = $request->getParsedBody();
+
+        try {
+            $car = $this->em->getRepository('\Models\Entity\Car')->find($data["carId"]);
+
+            if($car == null)
+                throw new \InvalidArgumentException("Car not found!");
+
+            $rent = $this->em->getRepository('\Models\Entity\Rent')
+                ->findOneBy(["car" => $car, "returnedTheCarAt" => null]);
+
+            if($rent == null)
+                throw new \InvalidArgumentException("The car is not currently rented!");
+
+            $now = new DateTime();
+
+            $rent->setReturnedTheCarAt($now);
+            $car->setIsAvailable(true);
+
+            $this->em->persist($rent);
+            $this->em->persist($car);
+            $this->em->flush();
+
+            $response->getBody()->write(RentFormatter::getAsJSON($rent));
+        } catch (\InvalidArgumentException $e) {
+            $response->getBody()->write($e->getMessage());
+            return $response->withStatus(RESPONSE_STATUS_UNPROCESSABLE_ENTITY);
+        } catch (ResourceNotFoundException $e) {
+            $response->getBody()->write($e->getMessage());
+            return $response->withStatus(RESPONSE_STATUS_NOT_FOUND);
+        } catch (Exception $e) {
+            $response->getBody()->write($e->getMessage());
+            return $response->withStatus(RESPONSE_STATUS_INTERNAL_SERVER_ERROR);
+        }
+
+        return $response->withStatus(RESPONSE_STATUS_SUCCESS);
     }
 }
