@@ -4,6 +4,7 @@ use \Psr\Http\Message\ResponseInterface as Response;
 
 require_once "../../vendor/autoload.php";
 require_once '../../bootstrap.php';
+require_once '../constants.php';
 
 //$app->config('debug', false);
 $app = new \Slim\App($container);
