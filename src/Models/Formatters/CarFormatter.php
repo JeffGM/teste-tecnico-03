@@ -22,7 +22,9 @@ class CarFormatter {
             "licensePlate" => $car->getLicensePlate(),
             "pricePerDay" => $car->getPricePerDay(),
             "pricePerMonth" => $car->getPricePerMonth(),
-            "isAvailable" => $car->getIsAvailable()
+            "isAvailable" => $car->getIsAvailable(),
+            "updatedAt" => $car->getUpdatedAt(),
+            "createdAt" => $car->getCreatedAt()
         ];
     }
 }

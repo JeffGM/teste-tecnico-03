@@ -16,7 +16,9 @@ class ClientFormatter {
             "cpf" => $client->getCpf(),
             "fullName" => $client->getFullName(),
             "phone" => $client->getFullName(),
-            "email" => $client->getEmail()
+            "email" => $client->getEmail(),
+            "updatedAt" => $client->getUpdatedAt(),
+            "createdAt" => $client->getCreatedAt()
         ];
     }
 }

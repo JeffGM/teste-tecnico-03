@@ -30,10 +30,10 @@ trait DataChangeLogTrait {
     }
 
     public function getUpdatedAt(){
-        return $this->updatedAt;
+        return $this->updatedAt->format('Y-m-d H:i:s');;
     }
 
     public function getCreatedAt(){
-        return $this->createdAt;
+        return $this->createdAt->format('Y-m-d H:i:s');;
     }
 }

@@ -18,7 +18,9 @@ class RentFormatter {
             "car" => CarFormatter::getAsArray($rent->getCar()),
             "rentedTheCarAt" => $rent->getRentedTheCarAt(),
             "returnedTheCarAt" => $rent->getReturnedTheCarAt(),
-            "paymentModality" => $rent->getPaymentModality()
+            "paymentModality" => $rent->getPaymentModality(),
+            "updatedAt" => $rent->getUpdatedAt(),
+            "createdAt" => $rent->getCreatedAt()
         ];
     }
 }
