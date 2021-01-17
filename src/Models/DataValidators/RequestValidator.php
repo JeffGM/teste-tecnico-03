@@ -7,11 +7,15 @@ namespace Models\DataValidators;
 class RequestValidator {
     protected static $rules = [];
 
-    public static function validate($data) {
+    public static function validate($data, $allOptional = false) {
         foreach(static::$rules as $property => $expectedType) {
 
-            if(!isset($data[$property]))
-                throw new \InvalidArgumentException("The property ${property} is missing!");
+            if(!isset($data[$property])) {
+                if($allOptional)
+                    continue;
+                else
+                    throw new \InvalidArgumentException("The property ${property} is missing!");
+            }
 
             switch($expectedType) {
                     case 'bool':
