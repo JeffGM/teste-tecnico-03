@@ -16,7 +16,7 @@ class CarRequest {
         'isAvaliable' => 'bool'
     ];
 
-    public function validateCarAsArray($data) {
+    public static function validate($data) {
         foreach(static::$rules as $property => $expectedType) {
             if(isset($data[$property])) {
                 if(gettype($data[$property]) != $expectedType)
