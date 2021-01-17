@@ -14,7 +14,6 @@ class CarFormatter {
 
     public static function getAsArray(Car $car) {
         return [
-            "carId" => $car->getCarId(),
             "carName"=> $car->getCarName(),
             "carModel" => $car->getModel(),
             "color" => $car->getModel(),

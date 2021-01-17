@@ -45,10 +45,11 @@ class CarController implements ControllerDeleteInterface, ControllerPatchInterfa
     }
 
     public function get($request, $response, array $args){
-        $carId = $args["carId"];
 
         try {
-            $car = $this->em->getRepository('\Models\Entity\Car')->find($carId);
+            $licensePlate = $args["licensePlate"];
+
+            $car = $this->em->getRepository('\Models\Entity\Car')->findOneBy(["licensePlate" => $licensePlate]);
 
             if($car == null)
                 throw new ResourceNotFoundException("Car not found!");
