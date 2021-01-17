@@ -15,6 +15,7 @@ use Interfaces\ControllerPatchInterface;
 use Interfaces\ControllerPostInterface;
 use Models\DataValidators\CarRequest;
 use Models\Entity\Car;
+use Models\Formatters\CarFormatter;
 
 class CarController implements ControllerDeleteInterface, ControllerPatchInterface, ControllerGetInterface, ControllerPostInterface {
     protected $em;
@@ -34,11 +35,12 @@ class CarController implements ControllerDeleteInterface, ControllerPatchInterfa
         $carId = $args["id"];
 
         try {
-            $car = $this->em->getRepository('Models/Entity/Car')->find($carId);
+            $car = $this->em->getRepository('\Models\Entity\Car')->find($carId);
 
             if($car == null)
                 throw new ResourceNotFoundException("Car not found!");
 
+            $response->getBody()->write(CarFormatter::getAsJSON($car));
         } catch(ResourceNotFoundException $e) {
             $response->getBody()->write($e->getMessage());
             return $response->withStatus(RESPONSE_STATUS_NOT_FOUND);
