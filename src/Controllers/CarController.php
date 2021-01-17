@@ -13,6 +13,7 @@ use Interfaces\ControllerDeleteInterface;
 use Interfaces\ControllerGetInterface;
 use Interfaces\ControllerPatchInterface;
 use Interfaces\ControllerPostInterface;
+use InvalidArgumentException;
 use Models\DataValidators\CarRequest;
 use Models\Entity\Car;
 use Models\Formatters\CarFormatter;
@@ -28,16 +29,22 @@ class CarController implements ControllerDeleteInterface, ControllerPatchInterfa
         $data = $request->getParsedBody();
 
         try {
-            $car =  $this->em->getRepository('\Models\Entity\Car')->find($data["carId"]);
+            $car = $this->em->getRepository('\Models\Entity\Car')->findOneBy(["licensePlate" => $data["licensePlate"]]);
 
             if($car == null)
                 throw new ResourceNotFoundException("Car not found!");
+
+            if(!$car->getIsAvailable())
+                throw new InvalidArgumentException("A rented car cannot be deleted!");
 
             $this->em->remove($car);
             $this->em->flush();
         } catch(ResourceNotFoundException $e) {
             $response->getBody()->write($e->getMessage());
             return $response->withStatus(RESPONSE_STATUS_NOT_FOUND);
+        }  catch (\InvalidArgumentException $e) {
+            $response->getBody()->write($e->getMessage());
+            return $response->withStatus(RESPONSE_STATUS_BAD_REQUEST);
         } catch (Exception $e) {
             return $response->withStatus(RESPONSE_STATUS_INTERNAL_SERVER_ERROR);
         }
@@ -69,7 +76,7 @@ class CarController implements ControllerDeleteInterface, ControllerPatchInterfa
         try {
             CarRequest::validate($data, true);
 
-            $car =  $this->em->getRepository('\Models\Entity\Car')->find($data["carId"]);
+            $car =  $this->em->getRepository('\Models\Entity\Car')->findOneBy(["licensePlate" => $data["licensePlate"]]);
 
             if($car == null)
                 throw new ResourceNotFoundException("Car not found!");
@@ -86,8 +93,8 @@ class CarController implements ControllerDeleteInterface, ControllerPatchInterfa
             if(isset($data["year"]))
                 $car->setCarName($data["year"]);
 
-            if(isset($data["licensePlate"]))
-                $car->setCarName($data["licensePlate"]);
+            if(isset($data["newLicensePlate"]))
+                $car->setCarName($data["newLicensePlate"]);
 
             if(isset($data["pricePerDay"]))
                 $car->setCarName($data["pricePerDay"]);

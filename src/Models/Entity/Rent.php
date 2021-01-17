@@ -28,7 +28,7 @@ class Rent {
     protected $client;
     /**
      * @ORM\ManyToOne(targetEntity="Models\Entity\Car")
-     * @ORM\JoinColumn(name="carId", referencedColumnName="carId")
+     * @ORM\JoinColumn(name="carId", referencedColumnName="carId", onDelete="SET NULL")
      */
     protected $car;
     /**

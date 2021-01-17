@@ -31,7 +31,7 @@ class RentController implements ControllerPostInterface {
             RentRequest::validate($data);
             ClientRequest::validate($data["client"]);
 
-            $car = $this->em->getRepository('\Models\Entity\Car')->find($data["carId"]);
+            $car = $this->em->getRepository('\Models\Entity\Car')->findOneBy(["licensePlate" => $data["licensePlate"]]);
 
             if($car == null)
                 throw new ResourceNotFoundException("Car not found!");
@@ -75,7 +75,7 @@ class RentController implements ControllerPostInterface {
         $data = $request->getParsedBody();
 
         try {
-            $car = $this->em->getRepository('\Models\Entity\Car')->find($data["carId"]);
+            $car = $this->em->getRepository('\Models\Entity\Car')->findOneBy(["licensePlate" => $data["licensePlate"]]);
 
             if($car == null)
                 throw new \InvalidArgumentException("Car not found!");
