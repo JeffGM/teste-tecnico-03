@@ -47,7 +47,55 @@ class CarController implements ControllerDeleteInterface, ControllerPatchInterfa
     }
 
     public function patch($request, $response, array $args){
-        // TODO: Implement patch() method.
+        $data = $request->getParsedBody();
+
+        try {
+            CarRequest::validate($data, true);
+
+            $car =  $this->em->getRepository('\Models\Entity\Car')->find($data["carId"]);
+
+            if($car == null)
+                throw new ResourceNotFoundException("Car not found!");
+
+            if(isset($data["carName"]))
+                $car->setCarName($data["carName"]);
+
+            if(isset($data["carModel"]))
+                $car->setCarName($data["carModel"]);
+
+            if(isset($data["color"]))
+                $car->setCarName($data["color"]);
+
+            if(isset($data["year"]))
+                $car->setCarName($data["year"]);
+
+            if(isset($data["licensePlate"]))
+                $car->setCarName($data["licensePlate"]);
+
+            if(isset($data["pricePerDay"]))
+                $car->setCarName($data["pricePerDay"]);
+
+            if(isset($data["pricePerMonth"]))
+                $car->setCarName($data["pricePerMonth"]);
+
+            if(isset($data["isAvailable"]))
+                $car->setCarName($data["isAvailable"]);
+
+            $this->em->persist($car);
+            $this->em->flush();
+
+            $response->getBody()->write(CarFormatter::getAsJSON($car));
+        } catch(ResourceNotFoundException $e) {
+            $response->getBody()->write($e->getMessage());
+            return $response->withStatus(RESPONSE_STATUS_NOT_FOUND);
+        } catch (\InvalidArgumentException $e) {
+            $response->getBody()->write($e->getMessage());
+            return $response->withStatus(RESPONSE_STATUS_UNPROCESSABLE_ENTITY);
+        } catch (Exception $e) {
+            return $response->withStatus(RESPONSE_STATUS_INTERNAL_SERVER_ERROR);
+        }
+
+        return $response->withStatus(RESPONSE_STATUS_SUCCESS);
     }
 
     public function post($request, $response, array $args){
