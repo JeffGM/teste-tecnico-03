@@ -3,8 +3,7 @@
 
 namespace Models\DataValidators;
 
-
-class CarRequest {
+class CarRequest extends RequestValidator {
     protected static $rules = [
         'carName' => 'string',
         'carModel' => 'string',
@@ -15,15 +14,4 @@ class CarRequest {
         'pricePerMonth' => 'float',
         'isAvaliable' => 'bool'
     ];
-
-    public static function validate($data) {
-        foreach(static::$rules as $property => $expectedType) {
-            if(isset($data[$property])) {
-                if(gettype($data[$property]) != $expectedType)
-                    throw new \InvalidArgumentException("The property ${property} must be of type ${expectedType}");
-            else
-                throw new \InvalidArgumentException("The property ${property} is missing!");
-            }
-        }
     }
-}
