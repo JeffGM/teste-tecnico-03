@@ -1,3 +1,7 @@
+# Descrição básica do projeto
+O repositório contém uma API em PHP desenvolvida com ajuda da Slim Framework v3.\
+Nesta aplicação, estão contidas rotas para cadastro, alteração, remoção e leitura de carros cadastrados, bem como a funcionalidade de alugar e devolver um carro cadastrado.
+
 # Como executar o projeto?
   ## Requisitos básicos
   Para executar o projeto, é necessário possuir:\
@@ -75,7 +79,7 @@ vendor/bin/doctrine orm:schema-tool:create
 {
   "carName": "Honda Civic",
   "carModel": "Sedan",
-  "color": "Sedan",
+  "color": "black",
   "year": 2009,
   "licensePlate": "AXY034",
   "pricePerDay": 40.99,
@@ -97,7 +101,7 @@ vendor/bin/doctrine orm:schema-tool:create
 {
   "carName": "Honda Civic",
   "carModel": "Sedan",
-  "color": "Sedan",
+  "color": "black",
   "year": 2009,
   "licensePlate": "AXY034",
   "pricePerDay": 40.99,
@@ -109,12 +113,14 @@ vendor/bin/doctrine orm:schema-tool:create
 ```
 ### Editar carro (PATCH)
 -> Rota: /car \
+-> Todos os atributos do carro podem ser alterados, com exceção do updatedAt e do createdAt.\
 -> Exemplo de request:
 ```  
 {
 	"licensePlate": "AXY034",
 	"carName":"Golf",
-	"newLicensePlate": "ASD1234"
+	"newLicensePlate": "ASD1234",
+	"color": "yellow"
 }
 ```
 
@@ -123,7 +129,7 @@ vendor/bin/doctrine orm:schema-tool:create
 {
   "carName": "ASD1234",
   "carModel": "Sedan",
-  "color": "Sedan",
+  "color": "yellow",
   "year": 2009,
   "licensePlate": "AXY034",
   "pricePerDay": 40.99,
